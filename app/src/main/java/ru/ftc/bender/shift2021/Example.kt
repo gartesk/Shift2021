@@ -1,17 +1,9 @@
 package ru.ftc.bender.shift2021
 
 fun main() {
-
-	val name = "Jonh"
-	val surname = "Cena"
-
-	var age = 43
-	age++
-
-	println("$name $surname, age $age")
-
-	val occupation: String? = null
-	val occupationLength = occupation?.length ?: 0
-
-	println("occupation length: $occupationLength")
+	val formattedUserInfo = getFormattedUserInfo(name = "John", surname = "Cena", age = 43, occupation = "WWE fighter")
+	println(formattedUserInfo)
 }
+
+fun getFormattedUserInfo(name: String, surname: String, age: Int, occupation: String? = null): String =
+	"$name $surname, age $age, occupation: ${occupation ?: "No occupation"}"
