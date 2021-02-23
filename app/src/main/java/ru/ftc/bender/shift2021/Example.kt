@@ -4,20 +4,25 @@ fun main() {
 	val formattedUserInfo = getFormattedUserInfo(name = "John", surname = "Cena", age = 43, occupation = "WWE fighter")
 	println(formattedUserInfo)
 
-	evaluateAge(1000)
+	evaluateAge(1000) {
+		println("Success! $it")
+	}
+
+	listOf("Arthur", "John", "Alexander")
+		.map { it.length }
+		.maxByOrNull { it }
+		?.let { println("length: $it") }
 }
 
 fun getFormattedUserInfo(name: String, surname: String, age: Int, occupation: String? = null): String =
 	"$name $surname, age $age, occupation: ${occupation ?: "No occupation"}"
 
-fun evaluateAge(age: Int?) {
+fun evaluateAge(age: Int, onSuccess: (String) -> Unit) {
 	val result = when (age) {
-		null -> 42
-		in 0..49 -> throw RuntimeException("WTF")
+		in 0..49 -> "Young enough for this sh*t"
 		in 50..99 -> "Too old for this sh*t"
-		in 100..1000 -> null
-		else -> Unit
+		else -> "As old as the world"
 	}
 
-	println(result)
+	onSuccess(result)
 }
