@@ -11,7 +11,7 @@ open class Person(
 		"$name $surname, age $age, occupation: ${occupation ?: "No occupation"}"
 }
 
-class WweFighter(name: String, surname: String, age: Int): Person(name, surname, age, "WWE fighter") {
+class WweFighter(name: String, surname: String, age: Int): Person(name, surname, age, "WWE fighter"), Fighter by ChairFighter(name) {
 
 	fun evaluateAge(onSuccess: (String) -> Unit) {
 		val result = when (age) {
@@ -25,5 +25,14 @@ class WweFighter(name: String, surname: String, age: Int): Person(name, surname,
 
 	override fun getFormattedInfo(): String {
 		return super.getFormattedInfo() + " \nGive him your applause!"
+	}
+}
+
+class UfcFighter(name: String, surname: String, age: Int): Person(name, surname, age, "UFC fighter"), Fighter by ChairFighter(name)
+
+class ChairFighter(private val name: String): Fighter {
+
+	override fun fight() {
+		println("$name hits opponent with a chair!")
 	}
 }

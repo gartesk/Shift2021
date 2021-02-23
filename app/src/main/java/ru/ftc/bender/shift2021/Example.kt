@@ -1,10 +1,9 @@
 package ru.ftc.bender.shift2021
 
 fun main() {
-	val person = WweFighter(name = "John", surname = "Cena", age = 43)
-	println(person.getFormattedInfo())
+	val wweFighter = WweFighter(name = "John", surname = "Cena", age = 43)
+	val ufcFighter = UfcFighter(name = "Conor", surname = "McGregor", age = 32)
 
-	person.evaluateAge {
-		println("Success! $it")
-	}
+	wweFighter.fight()
+	ufcFighter.fight()
 }
