@@ -3,4 +3,6 @@
 	<string name="name_format">Name: %1$s</string>
 	<string name="surname_format">Surname: %1$s</string>
 	<string name="age_format">Age: %1$d</string>
+	<string name="occupation_absent">No occupation</string>
+	<string name="save_button">Save</string>
 </resources>

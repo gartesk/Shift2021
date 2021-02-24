@@ -32,4 +32,20 @@
 		android:textSize="18sp"
 		android:textColor="@color/purple_500"
 		tools:text="Age: 43" />
+
+	<EditText
+		android:id="@+id/occupation_input"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_margin="20dp"
+		android:textSize="18sp"
+		android:textColor="@color/purple_700"
+		tools:text = "No occupation" />
+
+	<Button
+		android:id="@+id/save_button"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_margin="20dp"
+		android:text="@string/save_button" />
 </LinearLayout>
