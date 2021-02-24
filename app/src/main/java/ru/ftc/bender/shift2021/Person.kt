@@ -1,38 +1,8 @@
 package ru.ftc.bender.shift2021
 
-open class Person(
-	private val name: String,
-	private val surname: String,
-	protected val age: Int,
-	private val occupation: String?
-) {
-
-	open fun getFormattedInfo(): String =
-		"$name $surname, age $age, occupation: ${occupation ?: "No occupation"}"
-}
-
-class WweFighter(name: String, surname: String, age: Int): Person(name, surname, age, "WWE fighter"), Fighter by ChairFighter(name) {
-
-	fun evaluateAge(onSuccess: (String) -> Unit) {
-		val result = when (age) {
-			in 0..49 -> "Young enough for this sh*t"
-			in 50..99 -> "Too old for this sh*t"
-			else -> "As old as the world"
-		}
-
-		onSuccess(result)
-	}
-
-	override fun getFormattedInfo(): String {
-		return super.getFormattedInfo() + " \nGive him your applause!"
-	}
-}
-
-class UfcFighter(name: String, surname: String, age: Int): Person(name, surname, age, "UFC fighter"), Fighter by ChairFighter(name)
-
-class ChairFighter(private val name: String): Fighter {
-
-	override fun fight() {
-		println("$name hits opponent with a chair!")
-	}
-}
+data class Person(
+	val name: String,
+	val surname: String,
+	val age: Int,
+	val occupation: String?
+)
