@@ -6,9 +6,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 
-class MainActivity : AppCompatActivity() {
+class DetailsActivity : AppCompatActivity() {
 
-	private val personRepository = PersonRepository()
+	private lateinit var personRepository: PersonRepository
 
 	private lateinit var nameText: TextView
 	private lateinit var surnameText: TextView
@@ -18,7 +18,9 @@ class MainActivity : AppCompatActivity() {
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_main)
+		setContentView(R.layout.activity_details)
+
+		personRepository = (application as PersonApplication).personRepository
 
 		nameText = findViewById(R.id.name_text)
 		surnameText = findViewById(R.id.surname_text)
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity() {
 			val person = personRepository.getPerson()
 			val updatedPerson = person.copy(occupation = occupationInput.text.toString())
 			personRepository.setPerson(updatedPerson)
+			finish()
 		}
 
 		initPerson()
