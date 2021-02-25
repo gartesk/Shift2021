@@ -1,5 +1,7 @@
 package ru.ftc.bender.shift2021.detail
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -10,6 +12,17 @@ import ru.ftc.bender.shift2021.PersonRepository
 import ru.ftc.bender.shift2021.R
 
 class DetailsActivity : AppCompatActivity() {
+
+	companion object {
+
+		private const val EXTRA_ID = "EXTRA_ID"
+
+		fun start(context: Context, id: Long) {
+			val intent = Intent(context, DetailsActivity::class.java)
+			intent.putExtra(EXTRA_ID, id)
+			context.startActivity(intent)
+		}
+	}
 
 	private lateinit var personRepository: PersonRepository
 
@@ -32,7 +45,8 @@ class DetailsActivity : AppCompatActivity() {
 		saveButton = findViewById(R.id.save_button)
 
 		saveButton.setOnClickListener {
-			val person = personRepository.getPerson(0)
+			val id = intent.getLongExtra(EXTRA_ID, 0)
+			val person = personRepository.getPerson(id)
 			if (person != null) {
 				val updatedPerson = person.copy(occupation = occupationInput.text.toString())
 				personRepository.setPerson(updatedPerson)
@@ -44,13 +58,14 @@ class DetailsActivity : AppCompatActivity() {
 	}
 
 	private fun initPerson() {
-		val person = personRepository.getPerson(0)
+		val id = intent.getLongExtra(EXTRA_ID, 0)
+		val person = personRepository.getPerson(id)
 
 		if (person != null) {
 			nameText.text = getString(R.string.name_format, person.name)
 			surnameText.text = getString(R.string.surname_format, person.surname)
 			ageText.text = getString(R.string.age_format, person.age)
-			occupationInput.setText(person.occupation ?: getString(R.string.occupation_absent))
+			occupationInput.setText(person.occupation)
 		} else {
 			finish()
 		}

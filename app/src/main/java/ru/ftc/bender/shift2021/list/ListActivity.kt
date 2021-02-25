@@ -7,13 +7,16 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.ftc.bender.shift2021.PersonApplication
 import ru.ftc.bender.shift2021.PersonRepository
 import ru.ftc.bender.shift2021.R
+import ru.ftc.bender.shift2021.detail.DetailsActivity
 
 class ListActivity : AppCompatActivity() {
 
 	private lateinit var personRepository: PersonRepository
 
 	private lateinit var peopleList: RecyclerView
-	private val adapter = PeopleAdapter()
+	private val adapter = PeopleAdapter {
+		DetailsActivity.start(this, it.id)
+	}
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)

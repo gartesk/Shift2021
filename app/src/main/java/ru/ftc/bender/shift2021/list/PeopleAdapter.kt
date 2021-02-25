@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.ftc.bender.shift2021.Person
 import ru.ftc.bender.shift2021.R
 
-class PeopleAdapter() : RecyclerView.Adapter<PersonHolder>() {
+class PeopleAdapter(private val onItemClick: (Person) -> Unit) : RecyclerView.Adapter<PersonHolder>() {
 
 	var people: List<Person> = emptyList()
 		set(value) {
@@ -18,7 +18,7 @@ class PeopleAdapter() : RecyclerView.Adapter<PersonHolder>() {
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonHolder {
 		val view = LayoutInflater.from(parent.context).inflate(R.layout.item_person, parent, false)
-		return PersonHolder(view)
+		return PersonHolder(view, onItemClick)
 	}
 
 	override fun onBindViewHolder(holder: PersonHolder, position: Int) {
@@ -29,7 +29,7 @@ class PeopleAdapter() : RecyclerView.Adapter<PersonHolder>() {
 	override fun getItemCount(): Int = people.count()
 }
 
-class PersonHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class PersonHolder(itemView: View, private val onItemClick: (Person) -> Unit) : RecyclerView.ViewHolder(itemView) {
 
 	private val nameText = itemView.findViewById<TextView>(R.id.name_text)
 	private val occupationText = itemView.findViewById<TextView>(R.id.occupation_text)
@@ -37,5 +37,6 @@ class PersonHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 	fun bind(person: Person) {
 		nameText.text = itemView.context.getString(R.string.person_format, person.name, person.surname)
 		occupationText.text = person.occupation ?: itemView.context.getString(R.string.occupation_absent)
+		itemView.setOnClickListener { onItemClick(person) }
 	}
 }
