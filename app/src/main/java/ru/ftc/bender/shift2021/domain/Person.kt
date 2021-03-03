@@ -1,4 +1,4 @@
-package ru.ftc.bender.shift2021
+package ru.ftc.bender.shift2021.domain
 
 data class Person(
 	val id: Long,

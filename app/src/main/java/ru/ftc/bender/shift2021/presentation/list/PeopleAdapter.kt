@@ -1,11 +1,11 @@
-package ru.ftc.bender.shift2021.list
+package ru.ftc.bender.shift2021.presentation.list
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import ru.ftc.bender.shift2021.Person
+import ru.ftc.bender.shift2021.domain.Person
 import ru.ftc.bender.shift2021.R
 
 class PeopleAdapter(private val onClick: (Person) -> Unit) : RecyclerView.Adapter<PersonHolder>() {
