@@ -1,35 +1,39 @@
 package ru.ftc.bender.shift2021.presentation.detail
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import ru.ftc.bender.shift2021.BaseViewModel
+import ru.ftc.bender.shift2021.domain.CreatePersonUseCase
 import ru.ftc.bender.shift2021.domain.GetPersonUseCase
 import ru.ftc.bender.shift2021.domain.Person
-import ru.ftc.bender.shift2021.domain.SetPersonUseCase
 import ru.ftc.bender.shift2021.presentation.LiveEvent
 
 class DetailViewModel(
+    private val createPersonUseCase: CreatePersonUseCase,
     getPersonUseCase: GetPersonUseCase,
-    private val setPersonUseCase: SetPersonUseCase,
-    id: Long
-) : ViewModel() {
+    personId: Long,
+) : BaseViewModel() {
+
+    companion object {
+        const val CREATION = -1L
+    }
 
     val person = MutableLiveData<Person>()
-
     val closeScreenEvent = LiveEvent()
 
     init {
-        val person = getPersonUseCase(id)
+        if(personId != CREATION) {
+            val person = getPersonUseCase(personId)
 
-        if (person != null) {
-            this.person.value = person
-        } else {
-            closeScreenEvent(Unit)
+            if (person != null) {
+                this.person.value = person
+            } else {
+                closeScreenEvent(Unit)
+            }
         }
-
     }
 
-    fun savePerson(editedPerson: Person) {
-        setPersonUseCase(editedPerson)
+    fun createPerson(name: String, surName: String, age: Int, occupation: String? = null) {
+        createPersonUseCase(name, surName, age, occupation)
         closeScreenEvent()
     }
 }

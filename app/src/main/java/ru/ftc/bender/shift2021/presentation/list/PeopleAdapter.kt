@@ -16,6 +16,11 @@ class PeopleAdapter(private val onClick: (Person) -> Unit) : RecyclerView.Adapte
 			notifyDataSetChanged()
 		}
 
+	fun remove(position: Int) {
+		(people as MutableList).removeAt(position)
+		notifyItemRemoved(position)
+	}
+
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonHolder {
 		val view = LayoutInflater.from(parent.context).inflate(R.layout.item_person, parent, false)
 		return PersonHolder(view, onClick)

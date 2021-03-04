@@ -6,5 +6,7 @@ interface PersonRepository {
 
     fun getPerson(id: Long): Person?
 
-    fun setPerson(person: Person)
+    fun deletePerson(id: Long)
+
+    fun createPerson(person: Person)
 }

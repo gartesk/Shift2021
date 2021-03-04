@@ -1,41 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:orientation="vertical"
-	tools:context=".presentation.detail.DetailActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".presentation.detail.DetailActivity">
 
-	<TextView
-		android:id="@+id/nameText"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_margin="24dp"
-		android:textColor="@color/purple_500"
-		android:textSize="16sp"
-		tools:text="Name: John" />
+    <EditText
+        android:id="@+id/nameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:hint="enter name"
+        android:textColor="@color/purple_500"
+        android:textSize="16sp"
+        tools:text="Name: John" />
 
-	<TextView
-		android:id="@+id/surnameText"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_margin="24dp"
-		android:textColor="@color/purple_700"
-		android:textSize="16sp"
-		tools:text="Surname: Cena" />
+    <EditText
+        android:id="@+id/surnameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:hint="enter surname"
+        android:textColor="@color/purple_700"
+        android:textSize="16sp"
+        tools:text="Surname: Cena" />
 
-	<EditText
-		android:id="@+id/occupationInput"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_margin="24dp"
-		android:textSize="16sp" />
+    <EditText
+        android:id="@+id/ageText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:hint="enter age"
+        android:inputType="numberDecimal"
+        android:textColor="@color/purple_700"
+        android:textSize="16sp"
+        tools:text="Surname: Cena" />
 
-	<Button
-		android:id="@+id/saveButton"
-		android:layout_width="match_parent"
-		android:layout_margin="24dp"
-		android:layout_height="wrap_content"
-		android:text="@string/save_button"/>
+    <EditText
+        android:id="@+id/occupationInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:hint="enter occupation"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:text="@string/save_button" />
 
 </LinearLayout>

@@ -9,7 +9,11 @@ class PersonRepositoryImpl(private val personDataSource: PersonDataSource) : Per
 
 	override fun getPerson(id: Long): Person? = personDataSource.getPerson(id)
 
-	override fun setPerson(person: Person) {
-		personDataSource.setPerson(person)
+	override fun deletePerson(id: Long) {
+		personDataSource.deletePerson(id)
+	}
+
+	override fun createPerson(person: Person) {
+		personDataSource.createPerson(person)
 	}
 }
