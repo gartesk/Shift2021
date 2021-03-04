@@ -1,6 +1,7 @@
 package ru.ftc.bender.shift2021.presentation.detail
 
 import androidx.lifecycle.MutableLiveData
+import io.reactivex.android.schedulers.AndroidSchedulers
 import ru.ftc.bender.shift2021.BaseViewModel
 import ru.ftc.bender.shift2021.domain.CreatePersonUseCase
 import ru.ftc.bender.shift2021.domain.GetPersonUseCase
@@ -14,26 +15,37 @@ class DetailViewModel(
 ) : BaseViewModel() {
 
     companion object {
-        const val CREATION = -1L
+        const val NO_PERSON = -1L
     }
 
+    val loading = MutableLiveData(false)
     val person = MutableLiveData<Person>()
     val closeScreenEvent = LiveEvent()
 
     init {
-        if(personId != CREATION) {
-            val person = getPersonUseCase(personId)
-
-            if (person != null) {
-                this.person.value = person
-            } else {
-                closeScreenEvent(Unit)
-            }
+        if (personId != NO_PERSON) {
+            loading.value = true
+            getPersonUseCase(personId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    loading.value = false
+                    this.person.value = it
+                }, {
+                    closeScreenEvent(Unit)
+                })
+                .untilDestroy()
         }
     }
 
     fun createPerson(name: String, surName: String, age: Int, occupation: String? = null) {
+        loading.value = true
         createPersonUseCase(name, surName, age, occupation)
-        closeScreenEvent()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                closeScreenEvent()
+            }, {
+                closeScreenEvent()
+            })
+            .untilDestroy()
     }
 }

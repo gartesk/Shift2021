@@ -1,6 +1,7 @@
 package ru.ftc.bender.shift2021.presentation.list
 
 import androidx.lifecycle.MutableLiveData
+import io.reactivex.android.schedulers.AndroidSchedulers
 import ru.ftc.bender.shift2021.BaseViewModel
 import ru.ftc.bender.shift2021.domain.GetPeopleUseCase
 import ru.ftc.bender.shift2021.domain.Person
@@ -16,16 +17,26 @@ class ListViewModel(
 
     fun loadPeople() {
         loading.value = true
-        val people = getPeopleUseCase()
-
-        peopleList.value = people
-        loading.value = false
+        getPeopleUseCase()
+            .observeOn(AndroidSchedulers.mainThread())
+            .doAfterTerminate {
+                loading.value = false
+            }
+            .subscribe({
+                peopleList.value = it
+            }, {})
+            .untilDestroy()
     }
 
     fun removePerson(person: Person) {
         loading.value = true
         removePersonUseCase(person.id)
-
-        loadPeople()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                loadPeople()
+            }, {
+                loadPeople()
+            })
+            .untilDestroy()
     }
 }

@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.ProgressBar
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -27,7 +29,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private val viewModel: DetailViewModel by viewModels {
-        val id = intent.getLongExtra(EXTRA_ID, DetailViewModel.CREATION)
+        val id = intent.getLongExtra(EXTRA_ID, DetailViewModel.NO_PERSON)
         DetailViewModelFactory(id)
     }
 
@@ -36,6 +38,8 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var occupationInput: EditText
     private lateinit var ageText: EditText
     private lateinit var saveButton: Button
+    private lateinit var progressBar: ProgressBar
+    private lateinit var content: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +49,10 @@ class DetailActivity : AppCompatActivity() {
 
         viewModel.person.observe(this, ::renderPersonDetailsState)
         viewModel.closeScreenEvent.observe(this) { closeScreen() }
+        viewModel.loading.observe(this) {
+            content.isVisible = !it
+            progressBar.isVisible = it
+        }
     }
 
     private fun renderPersonDetailsState(person: Person) {
@@ -66,6 +74,8 @@ class DetailActivity : AppCompatActivity() {
         occupationInput = findViewById(R.id.occupationInput)
         ageText = findViewById(R.id.ageText)
         saveButton = findViewById(R.id.saveButton)
+        progressBar = findViewById(R.id.progressBar)
+        content = findViewById(R.id.content)
 
         saveButton.setOnClickListener {
             viewModel.createPerson(

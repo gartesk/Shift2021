@@ -3,6 +3,7 @@ package ru.ftc.bender.shift2021.presentation.list
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -52,6 +53,7 @@ class ListActivity : AppCompatActivity() {
 
         viewModel.peopleList.observe(this, ::bindPeopleList)
         viewModel.loading.observe(this) {
+            peopleList.isVisible = !it
             swipeRefresh.isRefreshing = it
         }
 
@@ -64,7 +66,7 @@ class ListActivity : AppCompatActivity() {
         }
 
         createPersonButton.setOnClickListener {
-            DetailActivity.start(this, DetailViewModel.CREATION)
+            DetailActivity.start(this, DetailViewModel.NO_PERSON)
         }
     }
 
