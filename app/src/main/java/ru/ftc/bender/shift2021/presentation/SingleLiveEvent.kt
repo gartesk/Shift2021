@@ -1,4 +1,4 @@
-package ru.ftc.bender.shift2021
+package ru.ftc.bender.shift2021.presentation
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner

@@ -1,28 +1,17 @@
-package ru.ftc.bender.shift2021.list
+package ru.ftc.bender.shift2021.presentation.list
 
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
-import ru.ftc.bender.shift2021.Person
-import ru.ftc.bender.shift2021.PersonApplication
-import ru.ftc.bender.shift2021.PersonRepository
 import ru.ftc.bender.shift2021.R
-import ru.ftc.bender.shift2021.detail.DetailActivity
+import ru.ftc.bender.shift2021.domain.Person
+import ru.ftc.bender.shift2021.presentation.detail.DetailActivity
 
 class ListActivity : AppCompatActivity() {
 
 	private val viewModel: ListViewModel by viewModels {
-		object : ViewModelProvider.Factory {
-			override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-				modelClass
-					.getConstructor(PersonRepository::class.java)
-					.newInstance(
-						(application as PersonApplication).personRepository
-					)
-		}
+		ListViewModelFactory()
 	}
 
 	private lateinit var peopleList: RecyclerView
